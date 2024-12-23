@@ -1,5 +1,4 @@
 import { PropType } from 'vue';
-import { IComponent } from '../types/config.type';
 /**
  * Render Component.
  * @param component
@@ -11,7 +10,7 @@ export declare const useComponent: () => {
             default: string;
         };
         fieldType: {
-            type: PropType<IComponent["type"]>;
+            type: PropType<string>;
             required: true;
         };
         disabled: {
@@ -23,6 +22,10 @@ export declare const useComponent: () => {
             default: string;
         };
         enterToSave: {
+            type: PropType<boolean>;
+            default: boolean;
+        };
+        labelHtml: {
             type: PropType<boolean>;
             default: boolean;
         };
@@ -34,7 +37,7 @@ export declare const useComponent: () => {
             default: string;
         };
         fieldType: {
-            type: PropType<IComponent["type"]>;
+            type: PropType<string>;
             required: true;
         };
         disabled: {
@@ -49,6 +52,10 @@ export declare const useComponent: () => {
             type: PropType<boolean>;
             default: boolean;
         };
+        labelHtml: {
+            type: PropType<boolean>;
+            default: boolean;
+        };
     }>> & Readonly<{
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     }>, {
@@ -56,5 +63,6 @@ export declare const useComponent: () => {
         disabled: boolean;
         dateFormat: string;
         enterToSave: boolean;
+        labelHtml: boolean;
     }, {}, {}, {}, string, import('vue').ComponentProvideOptions, true, {}, any>;
 };

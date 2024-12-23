@@ -24,7 +24,7 @@ export const useComponent = () => {
         default: "",
       },
       fieldType: {
-        type: String as PropType<IComponent["type"]>,
+        type: String as PropType<keyof typeof component>,
         required: true,
       },
       disabled: {
@@ -39,6 +39,10 @@ export const useComponent = () => {
         type: Boolean as PropType<boolean>,
         default: true,
       },
+      labelHtml: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+      }
     },
     emits: ["update:modelValue"],
     setup(props, { emit, attrs, slots }) {
@@ -65,6 +69,18 @@ export const useComponent = () => {
       const labelDate = computed(() => {
         const date = isArrayDate(props.modelValue, props.dateFormat)
         return Array.isArray(date) ? date.join(' - ') : date
+      })
+
+      const parseHtml = (html: string) => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(html, 'text/html')
+        return h('div', { innerHTML: doc.body.innerHTML })
+      }
+
+      const labelHtml = computed(() => {
+        if (!props.labelHtml) return
+
+        return parseHtml(props.modelValue || attrs?.placeholder || 'Enter Text')
       })
 
       const onInput = (value: string | string[]) => {
@@ -108,7 +124,8 @@ export const useComponent = () => {
             class: cLabel.value,
             onClick: onEdit,
           }, isValidDate(props.modelValue) ? labelDate.value
-            : props.modelValue ? props.modelValue 
+            : props.labelHtml ? labelHtml.value
+            : props.modelValue ? props.modelValue
             : attrs?.placeholder || ''
           )
         }

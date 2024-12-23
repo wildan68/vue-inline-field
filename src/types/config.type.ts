@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 export type IComponent = {
   id: string
-  type: "TEXT" | "TEXTAREA" | "SELECT" | "DATEPICKER" | "CUSTOM"
+  type: string
   component: string
   props?: Record<string, any>
   slots?: any
