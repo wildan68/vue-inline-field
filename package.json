@@ -22,6 +22,10 @@
   "scripts": {
     "build": "vite build && tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wildan68/vue-inline-field.git"
+  },
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "@vueuse/core": "^12.1.0",
