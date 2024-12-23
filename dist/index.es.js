@@ -3,8 +3,8 @@ const z = ye({
   components: {},
   locale: "en"
 }), fe = () => ({
-  setConfig: ({ components: m, locale: c }) => {
-    z.components = { ...z.components, ...m }, c && (z.locale = c);
+  setConfig: ({ components: m, locale: l }) => {
+    z.components = { ...z.components, ...m }, l && (z.locale = l);
   },
   config: z
 });
@@ -25,14 +25,14 @@ function Ye() {
 const me = he ? window : void 0;
 function P(u) {
   var m;
-  const c = q(u);
-  return (m = c == null ? void 0 : c.$el) != null ? m : c;
+  const l = q(u);
+  return (m = l == null ? void 0 : l.$el) != null ? m : l;
 }
 function ie(...u) {
-  let m, c, i, O;
-  if (typeof u[0] == "string" || Array.isArray(u[0]) ? ([c, i, O] = u, m = me) : [m, c, i, O] = u, !m)
+  let m, l, i, O;
+  if (typeof u[0] == "string" || Array.isArray(u[0]) ? ([l, i, O] = u, m = me) : [m, l, i, O] = u, !m)
     return G;
-  Array.isArray(c) || (c = [c]), Array.isArray(i) || (i = [i]);
+  Array.isArray(l) || (l = [l]), Array.isArray(i) || (i = [i]);
   const M = [], y = () => {
     M.forEach((b) => b()), M.length = 0;
   }, v = (b, _, L, w) => (b.addEventListener(_, L, w), () => b.removeEventListener(_, L, w)), A = ve(
@@ -42,7 +42,7 @@ function ie(...u) {
         return;
       const L = we(_) ? { ..._ } : _;
       M.push(
-        ...c.flatMap((w) => i.map((E) => v(b, w, E, L)))
+        ...l.flatMap((w) => i.map((E) => v(b, w, E, L)))
       );
     },
     { immediate: !0, flush: "post" }
@@ -52,69 +52,69 @@ function ie(...u) {
   return Se(D), D;
 }
 let ae = !1;
-function ke(u, m, c = {}) {
-  const { window: i = me, ignore: O = [], capture: M = !0, detectIframe: y = !1 } = c;
+function ke(u, m, l = {}) {
+  const { window: i = me, ignore: O = [], capture: M = !0, detectIframe: y = !1 } = l;
   if (!i)
     return G;
-  De && !ae && (ae = !0, Array.from(i.document.body.children).forEach((l) => l.addEventListener("click", G)), i.document.documentElement.addEventListener("click", G));
+  De && !ae && (ae = !0, Array.from(i.document.body.children).forEach((c) => c.addEventListener("click", G)), i.document.documentElement.addEventListener("click", G));
   let v = !0;
-  const A = (l) => q(O).some((p) => {
+  const A = (c) => q(O).some((p) => {
     if (typeof p == "string")
-      return Array.from(i.document.querySelectorAll(p)).some((Y) => Y === l.target || l.composedPath().includes(Y));
+      return Array.from(i.document.querySelectorAll(p)).some((Y) => Y === c.target || c.composedPath().includes(Y));
     {
       const Y = P(p);
-      return Y && (l.target === Y || l.composedPath().includes(Y));
+      return Y && (c.target === Y || c.composedPath().includes(Y));
     }
   });
-  function D(l) {
-    const p = q(l);
+  function D(c) {
+    const p = q(c);
     return p && p.$.subTree.shapeFlag === 16;
   }
-  function b(l, p) {
-    const Y = q(l), f = Y.$.subTree && Y.$.subTree.children;
+  function b(c, p) {
+    const Y = q(c), f = Y.$.subTree && Y.$.subTree.children;
     return f == null || !Array.isArray(f) ? !1 : f.some((j) => j.el === p.target || p.composedPath().includes(j.el));
   }
-  const _ = (l) => {
+  const _ = (c) => {
     const p = P(u);
-    if (l.target != null && !(!(p instanceof Element) && D(u) && b(u, l)) && !(!p || p === l.target || l.composedPath().includes(p))) {
-      if (l.detail === 0 && (v = !A(l)), !v) {
+    if (c.target != null && !(!(p instanceof Element) && D(u) && b(u, c)) && !(!p || p === c.target || c.composedPath().includes(p))) {
+      if (c.detail === 0 && (v = !A(c)), !v) {
         v = !0;
         return;
       }
-      m(l);
+      m(c);
     }
   };
   let L = !1;
   const w = [
-    ie(i, "click", (l) => {
+    ie(i, "click", (c) => {
       L || (L = !0, setTimeout(() => {
         L = !1;
-      }, 0), _(l));
+      }, 0), _(c));
     }, { passive: !0, capture: M }),
-    ie(i, "pointerdown", (l) => {
+    ie(i, "pointerdown", (c) => {
       const p = P(u);
-      v = !A(l) && !!(p && !l.composedPath().includes(p));
+      v = !A(c) && !!(p && !c.composedPath().includes(p));
     }, { passive: !0 }),
-    y && ie(i, "blur", (l) => {
+    y && ie(i, "blur", (c) => {
       setTimeout(() => {
         var p;
         const Y = P(u);
-        ((p = i.document.activeElement) == null ? void 0 : p.tagName) === "IFRAME" && !(Y != null && Y.contains(i.document.activeElement)) && m(l);
+        ((p = i.document.activeElement) == null ? void 0 : p.tagName) === "IFRAME" && !(Y != null && Y.contains(i.document.activeElement)) && m(c);
       }, 0);
     })
   ].filter(Boolean);
-  return () => w.forEach((l) => l());
+  return () => w.forEach((c) => c());
 }
 function Oe(u) {
   return u && u.__esModule && Object.prototype.hasOwnProperty.call(u, "default") ? u.default : u;
 }
-var Q = { exports: {} }, Ae = Q.exports, le;
+var Q = { exports: {} }, Ae = Q.exports, ce;
 function pe() {
-  return le || (le = 1, function(u, m) {
-    (function(c, i) {
+  return ce || (ce = 1, function(u, m) {
+    (function(l, i) {
       u.exports = i();
     })(Ae, function() {
-      var c = 1e3, i = 6e4, O = 36e5, M = "millisecond", y = "second", v = "minute", A = "hour", D = "day", b = "week", _ = "month", L = "quarter", w = "year", E = "date", l = "Invalid Date", p = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, Y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, f = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(s) {
+      var l = 1e3, i = 6e4, O = 36e5, M = "millisecond", y = "second", v = "minute", A = "hour", D = "day", b = "week", _ = "month", L = "quarter", w = "year", E = "date", c = "Invalid Date", p = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/, Y = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g, f = { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(s) {
         var n = ["th", "st", "nd", "rd"], e = s % 100;
         return "[" + s + (n[(e - 20) % 10] || n[e] || n[0]) + "]";
       } }, j = function(s, n, e) {
@@ -184,7 +184,7 @@ function pe() {
         }, n.$utils = function() {
           return d;
         }, n.isValid = function() {
-          return this.$d.toString() !== l;
+          return this.$d.toString() !== c;
         }, n.isSame = function(e, r) {
           var t = g(e);
           return this.startOf(r) <= t && t <= this.endOf(r);
@@ -199,12 +199,12 @@ function pe() {
         }, n.valueOf = function() {
           return this.$d.getTime();
         }, n.startOf = function(e, r) {
-          var t = this, o = !!d.u(r) || r, a = d.p(e), h = function(F, T) {
-            var C = d.w(t.$u ? Date.UTC(t.$y, T, F) : new Date(t.$y, T, F), t);
+          var t = this, o = !!d.u(r) || r, a = d.p(e), h = function(V, T) {
+            var C = d.w(t.$u ? Date.UTC(t.$y, T, V) : new Date(t.$y, T, V), t);
             return o ? C : C.endOf(D);
-          }, $ = function(F, T) {
-            return d.w(t.toDate()[F].apply(t.toDate("s"), (o ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(T)), t);
-          }, S = this.$W, k = this.$M, x = this.$D, V = "set" + (this.$u ? "UTC" : "");
+          }, $ = function(V, T) {
+            return d.w(t.toDate()[V].apply(t.toDate("s"), (o ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(T)), t);
+          }, S = this.$W, k = this.$M, x = this.$D, F = "set" + (this.$u ? "UTC" : "");
           switch (a) {
             case w:
               return o ? h(1, 0) : h(31, 11);
@@ -215,13 +215,13 @@ function pe() {
               return h(o ? x - W : x + (6 - W), k);
             case D:
             case E:
-              return $(V + "Hours", 0);
+              return $(F + "Hours", 0);
             case A:
-              return $(V + "Minutes", 1);
+              return $(F + "Minutes", 1);
             case v:
-              return $(V + "Seconds", 2);
+              return $(F + "Seconds", 2);
             case y:
-              return $(V + "Milliseconds", 3);
+              return $(F + "Milliseconds", 3);
             default:
               return this.clone();
           }
@@ -249,18 +249,18 @@ function pe() {
           if (a === w) return this.set(w, this.$y + e);
           if (a === D) return h(1);
           if (a === b) return h(7);
-          var $ = (t = {}, t[v] = i, t[A] = O, t[y] = c, t)[a] || 1, S = this.$d.getTime() + e * $;
+          var $ = (t = {}, t[v] = i, t[A] = O, t[y] = l, t)[a] || 1, S = this.$d.getTime() + e * $;
           return d.w(S, this);
         }, n.subtract = function(e, r) {
           return this.add(-1 * e, r);
         }, n.format = function(e) {
           var r = this, t = this.$locale();
-          if (!this.isValid()) return t.invalidDate || l;
-          var o = e || "YYYY-MM-DDTHH:mm:ssZ", a = d.z(this), h = this.$H, $ = this.$m, S = this.$M, k = t.weekdays, x = t.months, V = t.meridiem, I = function(T, C, R, B) {
+          if (!this.isValid()) return t.invalidDate || c;
+          var o = e || "YYYY-MM-DDTHH:mm:ssZ", a = d.z(this), h = this.$H, $ = this.$m, S = this.$M, k = t.weekdays, x = t.months, F = t.meridiem, I = function(T, C, R, B) {
             return T && (T[C] || T(r, o)) || R[C].slice(0, B);
           }, W = function(T) {
             return d.s(h % 12 || 12, T, "0");
-          }, F = V || function(T, C, R) {
+          }, V = F || function(T, C, R) {
             var B = T < 12 ? "AM" : "PM";
             return R ? B.toLowerCase() : B;
           };
@@ -300,9 +300,9 @@ function pe() {
                 case "hh":
                   return W(2);
                 case "a":
-                  return F(h, $, !0);
+                  return V(h, $, !0);
                 case "A":
-                  return F(h, $, !1);
+                  return V(h, $, !1);
                 case "m":
                   return String($);
                 case "mm":
@@ -348,7 +348,7 @@ function pe() {
               o = k / i;
               break;
             case y:
-              o = k / c;
+              o = k / l;
               break;
             default:
               o = k;
@@ -388,16 +388,16 @@ function pe() {
 }
 var Te = pe();
 const K = /* @__PURE__ */ Oe(Te);
-var X = { exports: {} }, Le = X.exports, ce;
+var X = { exports: {} }, Le = X.exports, le;
 function xe() {
-  return ce || (ce = 1, function(u, m) {
-    (function(c, i) {
+  return le || (le = 1, function(u, m) {
+    (function(l, i) {
       u.exports = i(pe());
-    })(Le, function(c) {
+    })(Le, function(l) {
       function i(y) {
         return y && typeof y == "object" && "default" in y ? y : { default: y };
       }
-      var O = i(c), M = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(y) {
+      var O = i(l), M = { name: "id", weekdays: "Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu".split("_"), months: "Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember".split("_"), weekdaysShort: "Min_Sen_Sel_Rab_Kam_Jum_Sab".split("_"), monthsShort: "Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des".split("_"), weekdaysMin: "Mg_Sn_Sl_Rb_Km_Jm_Sb".split("_"), weekStart: 1, formats: { LT: "HH.mm", LTS: "HH.mm.ss", L: "DD/MM/YYYY", LL: "D MMMM YYYY", LLL: "D MMMM YYYY [pukul] HH.mm", LLLL: "dddd, D MMMM YYYY [pukul] HH.mm" }, relativeTime: { future: "dalam %s", past: "%s yang lalu", s: "beberapa detik", m: "semenit", mm: "%d menit", h: "sejam", hh: "%d jam", d: "sehari", dd: "%d hari", M: "sebulan", MM: "%d bulan", y: "setahun", yy: "%d tahun" }, ordinal: function(y) {
         return y + ".";
       } };
       return O.default.locale(M, null, !0), M;
@@ -408,18 +408,18 @@ xe();
 var ee = { exports: {} }, Ee = ee.exports, de;
 function je() {
   return de || (de = 1, function(u, m) {
-    (function(c, i) {
+    (function(l, i) {
       u.exports = i();
     })(Ee, function() {
-      return { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(c) {
-        var i = ["th", "st", "nd", "rd"], O = c % 100;
-        return "[" + c + (i[(O - 20) % 10] || i[O] || i[0]) + "]";
+      return { name: "en", weekdays: "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), months: "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), ordinal: function(l) {
+        var i = ["th", "st", "nd", "rd"], O = l % 100;
+        return "[" + l + (i[(O - 20) % 10] || i[O] || i[0]) + "]";
       } };
     });
   }(ee)), ee.exports;
 }
 je();
-const Ce = () => {
+const He = () => {
   const { config: u } = fe(), m = u.components;
   return { InlineField: ge({
     name: "InlineField",
@@ -457,7 +457,7 @@ const Ce = () => {
           if (!i.enterToSave) return;
           v.value = !1;
         }
-      }, l = () => {
+      }, c = () => {
         i.disabled || (v.value = !0);
       }, p = oe(() => i.disabled ? "inline-field-placeholder" : `inline-field-label ${!i.modelValue && (M == null ? void 0 : M.placeholder) && "inline-field-placeholder"}`), Y = Object.keys(y).filter((f) => f !== "default").map((f) => f);
       return () => {
@@ -467,7 +467,7 @@ const Ce = () => {
           "span",
           {
             class: p.value,
-            onClick: l
+            onClick: c
           },
           b(i.modelValue) ? L.value : i.modelValue ? i.modelValue : (M == null ? void 0 : M.placeholder) || ""
         ) : (ke(A, () => v.value = !1, { ignore: [D] }), Z(
@@ -488,15 +488,14 @@ const Ce = () => {
       };
     }
   }) };
-}, { InlineField: Ie } = Ce(), Fe = {
+}, Ie = {
   install(u, m) {
-    const { setConfig: c } = fe();
-    m && c(m);
+    const { setConfig: l } = fe();
+    m && l(m);
   }
 };
 export {
-  Ie as InlineField,
-  Fe as default,
-  Ce as useComponent,
+  Ie as default,
+  He as useComponent,
   fe as useConfig
 };
