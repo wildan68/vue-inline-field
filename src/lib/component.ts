@@ -1,5 +1,5 @@
 import { useConfig } from './config'
-import { h, defineComponent, PropType, ref, computed } from 'vue'
+import { h, defineComponent, PropType, ref, computed, toRef, watch } from 'vue'
 import type { IComponent } from '../types/config.type'
 import { IFunction } from '../types/function.type'
 import { onClickOutside } from '@vueuse/core'
@@ -42,13 +42,22 @@ export const useComponent = () => {
       labelHtml: {
         type: Boolean as PropType<boolean>,
         default: false,
+      },
+      readOnly: {
+        type: Boolean as PropType<boolean>,
+        default: false
+      },
+      labelDate: {
+        type: Boolean as PropType<boolean>,
+        default: false
       }
     },
-    emits: ["update:modelValue"],
+    emits: ["update:modelValue", "outsideClick"],
     setup(props, { emit, attrs, slots }) {
       const isEdit = ref<boolean>(false)
       const compRef = ref<HTMLElement | null>(null)
       const slotRef = ref<HTMLElement | null>(null)
+      const oldValue = ref(props.modelValue)
 
       const isValidDate = (date: string | string[]) => {
         if (Array.isArray(date)) {
@@ -95,6 +104,7 @@ export const useComponent = () => {
         if (event.key === 'Enter') {
           if (!props.enterToSave) return
           isEdit.value = false
+          emit('outsideClick', props.modelValue, oldValue.value)
         }
       }
 
@@ -109,6 +119,8 @@ export const useComponent = () => {
           return 'inline-field-placeholder'
         }
 
+        if (props.readOnly) return
+
         return `inline-field-label ${(!props.modelValue && attrs?.placeholder) && 'inline-field-placeholder'}`
       })
 
@@ -119,18 +131,31 @@ export const useComponent = () => {
           throw new Error(`Component FieldType#${props.fieldType} not found. Register the component first.`);
         }
 
-        if (!isEdit.value || props.disabled) {
+        if (props.readOnly) {
           return h('span', {
             class: cLabel.value,
-            onClick: onEdit,
-          }, isValidDate(props.modelValue) ? labelDate.value
+          }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
             : props.labelHtml ? labelHtml.value
             : props.modelValue ? props.modelValue
             : attrs?.placeholder || ''
           )
         }
 
-        onClickOutside(compRef, () => isEdit.value = false, { ignore: [slotRef] })
+        if (!isEdit.value || props.disabled) {
+          return h('span', {
+            class: cLabel.value,
+            onClick: onEdit,
+          }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
+            : props.labelHtml ? labelHtml.value
+            : props.modelValue ? props.modelValue
+            : attrs?.placeholder || ''
+          )
+        }
+
+        onClickOutside(compRef, () => {
+          isEdit.value = false
+          emit('outsideClick', props.modelValue, oldValue.value)
+        }, { ignore: [slotRef] })
 
         return h('div', { ref: compRef }, 
           [
