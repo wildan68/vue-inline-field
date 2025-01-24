@@ -1,7 +1,5 @@
 import { useConfig } from './config'
-import { h, defineComponent, PropType, ref, computed, toRef, watch } from 'vue'
-import type { IComponent } from '../types/config.type'
-import { IFunction } from '../types/function.type'
+import { h, defineComponent, PropType, ref, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import dayjs from 'dayjs'
 
@@ -136,6 +134,7 @@ export const useComponent = () => {
             class: cLabel.value,
           }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
             : props.labelHtml ? labelHtml.value
+            : slots?.['label'] ? h(slots['label'])
             : props.modelValue ? props.modelValue
             : attrs?.placeholder || ''
           )
@@ -147,6 +146,7 @@ export const useComponent = () => {
             onClick: onEdit,
           }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
             : props.labelHtml ? labelHtml.value
+            : slots?.['label'] ? h(slots['label'])
             : props.modelValue ? props.modelValue
             : attrs?.placeholder || ''
           )
@@ -163,10 +163,10 @@ export const useComponent = () => {
               modelValue: props.modelValue,
               ...attrs,
               'onUpdate:modelValue': onInput,
-              onkeydown,
+              onkeydown
             }, [
-              ...slotsList,
-              slots.default && h(slots.default, { ref: slotRef }),
+              ...slotsList.map((key) => slots[key] && h(slots[key], { ref: slotRef })),
+              slots.default && h(slots.default, { ref: slotRef })
             ])
           ]
         )
