@@ -21,6 +21,10 @@ export const useComponent = () => {
         type: String as PropType<any>,
         default: "",
       },
+      value: {
+        type: String as PropType<any>,
+        default: "",
+      },
       fieldType: {
         type: String as PropType<keyof typeof component>,
         required: true,
@@ -50,12 +54,18 @@ export const useComponent = () => {
         default: false
       }
     },
-    emits: ["update:modelValue", "outsideClick"],
+    emits: ["update:modelValue", "outsideClick", "update:value"],
     setup(props, { emit, attrs, slots }) {
       const isEdit = ref<boolean>(false)
       const compRef = ref<HTMLElement | null>(null)
       const slotRef = ref<HTMLElement | null>(null)
       const oldValue = ref(props.modelValue)
+      const tempValue = ref<string | string[]>('')
+
+      const isUseValue = computed({
+        get: () => Number.isFinite(props.value) || props.value ? props.value : props.modelValue,
+        set: (v) => emit('update:modelValue', v)
+      })
 
       const isValidDate = (date: string | string[]) => {
         if (Array.isArray(date)) {
@@ -96,6 +106,7 @@ export const useComponent = () => {
         }
 
         emit("update:modelValue", value);
+        tempValue.value = value
       }
 
       const onkeydown = (event: KeyboardEvent) => {
@@ -103,6 +114,7 @@ export const useComponent = () => {
           if (!props.enterToSave) return
           isEdit.value = false
           emit('outsideClick', props.modelValue, oldValue.value)
+          emit('update:value', tempValue.value)
         }
       }
 
@@ -135,7 +147,8 @@ export const useComponent = () => {
           }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
             : props.labelHtml ? labelHtml.value
             : slots?.['label'] ? h(slots['label'])
-            : props.modelValue ? props.modelValue
+            : Number.isFinite(props.modelValue) ? props.modelValue : props.modelValue ? props.modelValue
+            : Number.isFinite(props.value) ? props.value : props.value ? props.value
             : attrs?.placeholder || ''
           )
         }
@@ -147,7 +160,8 @@ export const useComponent = () => {
           }, (isValidDate(props.modelValue) && props.labelDate) ? labelDate.value
             : props.labelHtml ? labelHtml.value
             : slots?.['label'] ? h(slots['label'])
-            : props.modelValue ? props.modelValue
+            : Number.isFinite(props.modelValue) ? props.modelValue : props.modelValue ? props.modelValue
+            : Number.isFinite(props.value) ? props.value : props.value ? props.value
             : attrs?.placeholder || ''
           )
         }
@@ -160,7 +174,7 @@ export const useComponent = () => {
         return h('div', { ref: compRef }, 
           [
             h(component[props.fieldType] || 'input', {
-              modelValue: props.modelValue,
+              modelValue: isUseValue.value,
               ...attrs,
               'onUpdate:modelValue': onInput,
               onkeydown
